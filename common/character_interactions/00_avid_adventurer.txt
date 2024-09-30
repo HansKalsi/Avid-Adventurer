@@ -1,36 +1,36 @@
-#Become landless admin from laamp
-procure_estate_interaction = {
+#Make target your patron
+make_patron_interaction = {
 	category = interaction_category_laamp
-	icon = powerful_family_shield
+	icon = alliance
 
-	desc = procure_estate_interaction_desc
+	desc = make_patron_interaction_desc
 
 	cooldown_against_recipient = { years = 10 }
 
-	notification_text = {
-		first_valid = {
-			triggered_desc = {
-				trigger = {
-					scope:hook = yes
-				}
-				desc = PROCURE_ESTATE_HOOK
-			}
-			triggered_desc = {
-				trigger = {
-					scope:gold_option = yes
-				}
-				desc = PROCURE_ESTATE_GOLD
-			}
-			triggered_desc = {
-				trigger = {
-					scope:piety_option = yes
-				}
-				desc = PROCURE_ESTATE_PIETY
-			}
-			desc = PROCURE_ESTATE_PRESTIGE
-		}
-		desc = PROCURE_ESTATE_PROPOSAL_OUTRO
-	}
+	# notification_text = {
+	# 	first_valid = {
+	# 		triggered_desc = {
+	# 			trigger = {
+	# 				scope:hook = yes
+	# 			}
+	# 			desc = PROCURE_ESTATE_HOOK
+	# 		}
+	# 		triggered_desc = {
+	# 			trigger = {
+	# 				scope:gold_option = yes
+	# 			}
+	# 			desc = PROCURE_ESTATE_GOLD
+	# 		}
+	# 		triggered_desc = {
+	# 			trigger = {
+	# 				scope:piety_option = yes
+	# 			}
+	# 			desc = PROCURE_ESTATE_PIETY
+	# 		}
+	# 		desc = PROCURE_ESTATE_PRESTIGE
+	# 	}
+	# 	desc = PROCURE_ESTATE_PROPOSAL_OUTRO
+	# }
 
 	popup_on_receive = yes
 	pause_on_receive = yes
@@ -44,7 +44,6 @@ procure_estate_interaction = {
 		scope:actor = { government_has_flag = government_is_landless_adventurer }
 		scope:recipient = {
 			is_landed = yes
-			government_allows = administrative
 		}
 		NOT = { scope:recipient = scope:actor }
 	}
@@ -62,28 +61,6 @@ procure_estate_interaction = {
 						is_ruler = no
 					}
 				}
-			}
-		}
-		trigger_if = { # Only a Duke or higher can treat you right
-			limit = {
-				scope:recipient = {
-					highest_held_title_tier < tier_duchy
-				}
-			}
-			custom_description = {
-				text = procure_estate_low_rank_tt
-				always = no
-			}
-		}
-		trigger_if = { # Not going to give you a title if you're at war
-			limit = {
-				scope:actor = {
-					is_at_war_with = scope:recipient
-				}
-			}
-			custom_description = {
-				text = procure_estate_at_war_tt
-				always = no
 			}
 		}
 		scope:recipient = {
@@ -131,18 +108,18 @@ procure_estate_interaction = {
 		flag = hook
 		localization = SCHEME_HOOK
 	}
-	send_option = {
-		flag = prestige_option
-		localization = laamp_to_ladmin_prestige_option_desc
-	}
+	# send_option = {
+	# 	flag = prestige_option
+	# 	localization = laamp_to_ladmin_prestige_option_desc
+	# }
 	send_option = {
 		flag = gold_option
 		localization = laamp_to_ladmin_gold_option_desc
 	}
-	send_option = {
-		flag = piety_option
-		localization = laamp_to_ladmin_piety_option_desc
-	}
+	# send_option = {
+	# 	flag = piety_option
+	# 	localization = laamp_to_ladmin_piety_option_desc
+	# }
 
 	cost = {
 		gold = {
@@ -158,135 +135,7 @@ procure_estate_interaction = {
 				}
 			}
 		}
-		prestige = {
-			if = {
-				limit = {
-					NOR = {
-						scope:gold_option = yes
-						scope:piety_option = yes
-						scope:hook = yes
-					}
-				}
-				# Base cost
-				add = {
-					value = procure_estate_interaction_cost_base_prestige
-					desc = BASE
-				}
-				# Gender modifiers
-				if = {
-					limit = {
-						scope:recipient ?= {
-							top_liege = { has_realm_law = male_preference_law }
-						}
-						scope:actor = {
-							is_female = yes
-						}
-					}
-					add = { # Increase the base cost
-						value = {
-							value = procure_estate_interaction_cost_base_prestige
-							multiply = 0.25
-						}
-						desc = male_preference_law
-					}
-				}
-				if = {
-					limit = {
-						scope:recipient ?= {
-							top_liege = { has_realm_law = female_preference_law }
-						}
-						scope:actor = {
-							is_male = yes
-						}
-					}
-					add = { # Increase the base cost
-						value = {
-							value = procure_estate_interaction_cost_base_prestige
-							multiply = 0.25
-						}
-						desc = female_preference_law
-					}
-				}
-				#Brigands need to pay more to be legitimized
-				if = {
-					limit = {
-						scope:actor = {
-							has_realm_law = camp_purpose_brigands
-						}
-					}
-					add = { # Increase the base cost
-						value = {
-							value = major_prestige_value
-						}
-						desc = camp_purpose_brigands
-					}
-				}
-			}
-		}
-		piety = {
-			if = {
-				limit = {
-					scope:piety_option = yes
-				}
-
-				# Base cost
-				add = {
-					value = procure_estate_interaction_cost_base_piety
-					desc = BASE
-				}
-
-				# Gender modifiers
-				if = {
-					limit = {
-						scope:recipient ?= {
-							top_liege = { has_realm_law = male_preference_law }
-						}
-						scope:actor = {
-							is_female = yes
-						}
-					}
-					add = { # Increase the base cost
-						value = {
-							value = procure_estate_interaction_cost_base_piety
-							multiply = 0.25
-						}
-						desc = male_preference_law
-					}
-				}
-				if = {
-					limit = {
-						scope:recipient ?= {
-							top_liege = { has_realm_law = female_preference_law }
-						}
-						scope:actor = {
-							is_male = yes
-						}
-					}
-					add = { # Increase the base cost
-						value = {
-							value = procure_estate_interaction_cost_base_piety
-							multiply = 0.25
-						}
-						desc = female_preference_law
-					}
-				}
-				#Brigands need to pay more to be legitimized
-				if = {
-					limit = {
-						scope:actor = {
-							has_realm_law = camp_purpose_brigands
-						}
-					}
-					add = { # Increase the base cost
-						value = {
-							value = procure_estate_interaction_cost_base_piety
-						}
-						desc = camp_purpose_brigands
-					}
-				}
-			}
-		}
-	}
+    }
 
 	is_highlighted = {
 		always = yes
@@ -295,35 +144,26 @@ procure_estate_interaction = {
 	on_accept = {
 		scope:actor = {
 			save_scope_as = adventurer
-			procure_estate_interaction_effect = yes
-			create_character_memory = {
-				type = procured_estate_memory
-				participants = { benefactor = scope:recipient }
-			}
-			if = {
-				limit = {
-					is_ai = no
-				}
-				add_achievement_global_variable_effect = {
-					VARIABLE = started_from_the_bottom_now_were_ere_procure
-					VALUE = yes
-				}
-			}
+			# procure_estate_interaction_effect = yes
+			# create_character_memory = {
+			# 	type = procured_estate_memory
+			# 	participants = { benefactor = scope:recipient }
+			# }
 		}
 		
-		scope:actor = { trigger_event = ep3_interactions_events.0610 }
+		# scope:actor = { trigger_event = ep3_interactions_events.0610 }
 	}
 
 	on_decline = {
 		scope:actor = {
 			save_scope_as = adventurer
-			trigger_event = ep3_interactions_events.0611
+			# trigger_event = ep3_interactions_events.0611
 		}
 	}
 
 	ai_targets = {
 		ai_recipients = neighboring_rulers
-		ai_recipients = contacts
+		# ai_recipients = contacts
 	}
 	ai_frequency = 120
 
@@ -429,7 +269,7 @@ procure_estate_interaction = {
 		}
 		#You are criminal scum
 		modifier = {
-			add = -50
+			add = -100
 			desc = PROCURE_ESTATE_BRIGANDS_REASON
 			scope:actor = {
 				has_realm_law = camp_purpose_brigands
@@ -651,25 +491,6 @@ procure_estate_interaction = {
 			scope:gold_option = yes
 			desc = PROCURE_ESTATE_NEEDS_GOLD_REASON
 		}
-		#Needs piety
-		modifier = {
-			add = 20
-			scope:recipient = {
-				piety_level <= 0
-			}
-			scope:piety_option = yes
-			desc = PROCURE_ESTATE_NEEDS_PIETY_REASON
-		}
-
-		#Needs prestige
-		modifier = {
-			add = 20
-			scope:recipient = {
-				prestige_level <= 0
-			}
-			scope:prestige_option = yes
-			desc = PROCURE_ESTATE_NEEDS_PRESTIGE_REASON
-		}
 	}
 
 	ai_will_do = {
@@ -687,8 +508,6 @@ procure_estate_interaction = {
 		modifier = {
 			gold > 100
 			OR = {
-				prestige >= massive_prestige_value
-				piety >= massive_piety_value
 				gold >= massive_gold_value
 			}
 			add = 50
