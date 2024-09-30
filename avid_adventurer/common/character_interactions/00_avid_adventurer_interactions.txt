@@ -7,30 +7,23 @@ make_patron_interaction = {
 
 	cooldown_against_recipient = { years = 10 }
 
-	# notification_text = {
-	# 	first_valid = {
-	# 		triggered_desc = {
-	# 			trigger = {
-	# 				scope:hook = yes
-	# 			}
-	# 			desc = PROCURE_ESTATE_HOOK
-	# 		}
-	# 		triggered_desc = {
-	# 			trigger = {
-	# 				scope:gold_option = yes
-	# 			}
-	# 			desc = PROCURE_ESTATE_GOLD
-	# 		}
-	# 		triggered_desc = {
-	# 			trigger = {
-	# 				scope:piety_option = yes
-	# 			}
-	# 			desc = PROCURE_ESTATE_PIETY
-	# 		}
-	# 		desc = PROCURE_ESTATE_PRESTIGE
-	# 	}
-	# 	desc = PROCURE_ESTATE_PROPOSAL_OUTRO
-	# }
+	notification_text = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					scope:hook = yes
+				}
+				desc = PROCURE_ESTATE_HOOK
+			}
+			triggered_desc = {
+				trigger = {
+					scope:gold_option = yes
+				}
+				desc = PROCURE_ESTATE_GOLD
+			}
+		}
+		desc = PROCURE_ESTATE_PROPOSAL_OUTRO
+	}
 
 	popup_on_receive = yes
 	pause_on_receive = yes
@@ -46,6 +39,9 @@ make_patron_interaction = {
 			is_landed = yes
 		}
 		NOT = { scope:recipient = scope:actor }
+		NOT = {
+			scope:recipient = { is_contact_of = scope:actor }
+		}
 	}
 
 	is_valid_showing_failures_only = {
@@ -72,7 +68,6 @@ make_patron_interaction = {
 			TARGET = scope:recipient
 			LAAMP = scope:actor
 		}
-		# scope:recipient = { is_contact_of = scope:actor }
 
 		# Adventurers can't join wars in places they're exiled from.
 		custom_tooltip = {

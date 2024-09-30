@@ -3,3 +3,8 @@
 	# Make Patron Interaction
 	make_patron_interaction: "Make Patron"
 	make_patron_interaction_desc: "Make [recipient.GetName] your patron."
+
+	# Make Patron Notifications
+	PROCURE_ESTATE_HOOK: "As one to whom you owe a debt,"
+	PROCURE_ESTATE_GOLD: "As a #EMP generous#! [actor.GetWomanMan] of means,"
+	PROCURE_ESTATE_PROPOSAL_OUTRO: "I ask you grant me your patronage. I could prove quite the asset."
