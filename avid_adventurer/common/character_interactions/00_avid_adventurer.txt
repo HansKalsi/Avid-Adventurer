@@ -1,7 +1,7 @@
 #Make target your patron
 make_patron_interaction = {
 	category = interaction_category_laamp
-	icon = alliance
+	icon = icon_scheme_befriend
 
 	desc = make_patron_interaction_desc
 
@@ -72,7 +72,7 @@ make_patron_interaction = {
 			TARGET = scope:recipient
 			LAAMP = scope:actor
 		}
-		scope:recipient = { is_contact_of = scope:actor }
+		# scope:recipient = { is_contact_of = scope:actor }
 
 		# Adventurers can't join wars in places they're exiled from.
 		custom_tooltip = {
@@ -127,18 +127,11 @@ make_patron_interaction = {
 				value = procure_estate_interaction_cost_base_gold
 				desc = BASE
 			}
-			if = {
-				limit = { scope:gold_option = yes }
-				add = {
-					value = procure_estate_interaction_cost_base_gold
-					desc = laamp_to_ladmin_gold_option_desc
-				}
-			}
 		}
     }
 
 	is_highlighted = {
-		always = yes
+		always = no
 	}
 
 	on_accept = {
