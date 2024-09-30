@@ -2,4 +2,4 @@
 
 	# Make Patron Interaction
 	make_patron_interaction: "Make Patron"
-	make_patron_interaction_desc: "Make this character your patron."
+	make_patron_interaction_desc: "Make [recipient.GetName] your patron."

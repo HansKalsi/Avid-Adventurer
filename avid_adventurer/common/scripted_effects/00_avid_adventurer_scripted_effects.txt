@@ -1,0 +1,34 @@
+# Custom make patron effect
+make_patron_interaction_effect = {
+	if = {
+		limit = {
+			scope:gold_option = yes
+		}
+		show_as_tooltip = {
+			pay_short_term_gold = {
+				target = scope:recipient
+				gold = procure_estate_interaction_cost_base_gold
+			}
+		}
+		hidden_effect = {
+			scope:recipient = { add_gold = procure_estate_interaction_cost_base_gold }
+		}
+	}
+	else = {
+		limit = {
+			scope:hook = yes
+		}
+	}
+	scope:actor = {
+		# Add as Contact
+		save_scope_value_as = {
+			name = add_contact_toggle
+			value = flag:$CONTACT$
+		}
+		if = {
+			limit = { scope:add_contact_toggle != flag:no }
+			# Huck 'em into our contact list.
+			add_contact = scope:recipient
+		}
+    }
+}

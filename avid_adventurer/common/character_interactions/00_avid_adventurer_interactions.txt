@@ -137,7 +137,9 @@ make_patron_interaction = {
 	on_accept = {
 		scope:actor = {
 			save_scope_as = adventurer
-			# procure_estate_interaction_effect = yes
+			make_patron_interaction_effect = {
+				CONTACT = yes
+			}
 			# create_character_memory = {
 			# 	type = procured_estate_memory
 			# 	participants = { benefactor = scope:recipient }
